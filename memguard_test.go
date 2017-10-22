@@ -26,7 +26,7 @@ func TestNew(t *testing.T) {
 		t.Error("expected err; got nil")
 	}
 	if c != nil {
-		t.Error("expected nil, got *LockedBuffer")
+		t.Error("expected nil, got *Enclave")
 	}
 
 	a, err := NewMutable(8)
@@ -57,7 +57,7 @@ func TestNewFromBytes(t *testing.T) {
 		t.Error("expected err; got nil")
 	}
 	if c != nil {
-		t.Error("expected nil, got *LockedBuffer")
+		t.Error("expected nil, got *Enclave")
 	}
 
 	a, err := NewMutableFromBytes([]byte("test"))
@@ -86,7 +86,7 @@ func TestNewRandom(t *testing.T) {
 		t.Error("expected ErrInvalidLength")
 	}
 	if c != nil {
-		t.Error("expected nil, got *LockedBuffer")
+		t.Error("expected nil, got *Enclave")
 	}
 
 	a, err := NewMutableRandom(8)
@@ -158,7 +158,7 @@ func TestEqualTo(t *testing.T) {
 	a.Destroy()
 
 	if equal, err := a.EqualBytes([]byte("test")); equal || err != ErrDestroyed {
-		t.Error("unexpected return values with destroyed LockedBuffer")
+		t.Error("unexpected return values with destroyed Enclave")
 	}
 }
 
@@ -190,7 +190,7 @@ func TestReadOnly(t *testing.T) {
 }
 
 func TestMove(t *testing.T) {
-	// When buf is larger than LockedBuffer.
+	// When buf is larger than Enclave.
 	b, _ := NewMutable(16)
 	buf := []byte("this is a very large buffer")
 	b.Move(buf)
@@ -202,7 +202,7 @@ func TestMove(t *testing.T) {
 	}
 	b.Destroy()
 
-	// When buf is smaller than LockedBuffer.
+	// When buf is smaller than Enclave.
 	b, _ = NewMutable(16)
 	buf = []byte("diz small buf")
 	b.Move(buf)
@@ -217,7 +217,7 @@ func TestMove(t *testing.T) {
 	}
 	b.Destroy()
 
-	// When buf is equal in size to LockedBuffer.
+	// When buf is equal in size to Enclave.
 	b, _ = NewMutable(16)
 	buf = []byte("yellow submarine")
 	b.Move(buf)
